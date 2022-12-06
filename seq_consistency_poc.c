@@ -43,9 +43,10 @@
  * instructions!
  *
  * UT RESULTS:
- * ____ distributed_systems > ./seq_c_poc 
- * ____ Number of processors: 16
- * ____ 1 reorders detected after 9754303 iterations
+ *     distributed_systems > ./seq_c_poc 
+ *     Number of processors: 16
+ *     1 reorders detected after 9754303 iterations
+ *     2 reorders detected after 13322298 iterations
  * 
  */
 
