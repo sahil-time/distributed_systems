@@ -48,6 +48,9 @@
  *     1 reorders detected after 9754303 iterations
  *     2 reorders detected after 13322298 iterations
  * 
+ * sched_getcpu() gives the CPU on which the current thread is running! If you set the thread-affinity
+ * to the same CPU, it will by default become sequentially consistent!
+ *
  */
 
 #define _GNU_SOURCE
@@ -72,11 +75,15 @@ void *thread1Func(void *param)
     time_t t;
     srand((unsigned) time(&t));
 
+#if 0 //You do NOT need to set a thread affinity, without it the thread will run on random CPU!
+
     // Set thread affinity to CPU 10
     cpu_set_t cpus;
     CPU_ZERO(&cpus);
     CPU_SET(10, &cpus);
     pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpus);
+
+#endif
 
     for (;;)                                    // Loop indefinitely
     {
@@ -98,11 +105,16 @@ void *thread2Func(void *param)
 {
     time_t t;
     srand((unsigned) time(&t));
+
+#if 0 //You do NOT need to set a thread affinity, without it the thread will run on random CPU!
+
     // Set thread affinity to CPU 1
     cpu_set_t cpus;
     CPU_ZERO(&cpus);
     CPU_SET(1, &cpus);
     pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpus);
+
+#endif
 
     for (;;)                                    // Loop indefinitely
     {
