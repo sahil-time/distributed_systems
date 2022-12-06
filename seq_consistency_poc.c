@@ -42,6 +42,11 @@
  * is shared between CPU's, the HW re-ordering affects the way other CPU's look at those
  * instructions!
  *
+ * UT RESULTS:
+ * ____ distributed_systems > ./seq_c_poc 
+ * ____ Number of processors: 16
+ * ____ 1 reorders detected after 9754303 iterations
+ * 
  */
 
 #define _GNU_SOURCE
@@ -150,6 +155,7 @@ int main()
         // Check if there was a simultaneous reorder
         if (r1 == 0 && r2 == 0)
         {
+            // Once in this code, it proves that Sequential Consistency is violated!
             detected++;
             printf("%d reorders detected after %d iterations\n", detected, iterations);
         }
